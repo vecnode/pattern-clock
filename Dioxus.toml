@@ -1,0 +1,31 @@
+[application]
+default_width = 1200
+default_height = 800
+resizable = false
+
+[desktop]
+default_width = 1200
+default_height = 800
+resizable = false
+
+[web.app]
+
+# HTML title tag content
+title = "pattern-clock"
+
+default_width = 1200
+default_height = 800
+resizable = false
+
+# include `assets` in web platform
+[web.resource]
+
+# Additional JavaScript files
+script = ["assets/cytoscape-dist/cytoscape.min.js", "assets/graphview.js"]
+
+[web.resource.dev]
+
+# Javascript code file
+# serve: [dev-server] only
+script = ["assets/cytoscape-dist/cytoscape.min.js", "assets/graphview.js"]
+

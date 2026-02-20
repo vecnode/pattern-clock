@@ -1,0 +1,85 @@
+/* App-wide styling */
+body {
+    background-color: #b6b6b6;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+}
+
+#header {
+    width: 100%;
+}
+
+#app-header {
+    font-size: 14px;
+    width: 96%;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1e222d;
+    color: #cacaca;
+    border-radius: 4px;
+}
+
+
+
+/* Echo */
+#echo {
+    width: 240px;
+    /* margin-left: auto;
+    margin-right: auto; */
+    margin-top: 100px;
+    background-color: #1e222d;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#echo>h4 {
+    margin: 0px 0px 15px 0px;
+}
+
+
+#echo>input {
+    border: none;
+    border-bottom: 1px white solid;
+    background-color: transparent;
+    color: #ffffff;
+    transition: border-bottom-color 0.2s ease;
+    outline: none;
+    display: block;
+    padding: 0px 0px 5px 0px;
+    width: 100%;
+}
+
+#echo>input:focus {
+    border-bottom-color: #6d85c6;
+}
+
+#echo>p {
+    margin: 0px 0px 0px auto;
+}
+
+/* Markdown styling for chat messages */
+#app-header div div div div:last-child * {
+    color: #000000;
+}
+
+#app-header div div div div:last-child code {
+    background-color: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
+
+#app-header div div div div:last-child pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 0.5em 0;
+}
+
+#app-header div div div div:last-child pre code {
+    background-color: transparent;
+    padding: 0;
+}
