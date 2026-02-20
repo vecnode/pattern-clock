@@ -9,9 +9,6 @@ mod mcp_server {
 mod agents {
     include!("../agents.rs");
 }
-mod connections {
-    include!("../connections.rs");
-}
 mod shared {
     pub mod api {
         include!("../shared/api.rs");

@@ -23,7 +23,6 @@ mod mcp_server;
 mod agents;
 #[cfg(feature = "desktop")]
 mod lstm;
-mod connections;
 
 // Platform-specific app modules
 mod app;
@@ -32,9 +31,6 @@ mod shared;
 fn main() {
     #[cfg(feature = "desktop")]
     {
-        // Run Burn tensor example (desktop only)
-        burn_tensor_example();
-        
         // Window configuration for desktop
         let window_builder = WindowBuilder::new()
             .with_title("pattern-clock - Desktop")
@@ -80,7 +76,7 @@ fn main() {
 /// The computation graph: tmp = exp((x + y) @ x), where @ is matrix multiplication
 /// The gradient shows how much the output changes when y changes, which is essential for training neural networks.
 #[cfg(feature = "desktop")]
-fn burn_tensor_example() {
+pub fn burn_tensor_example() {
     // Define the backend type: Autodiff wrapper around WGPU backend for GPU-accelerated computation with gradient tracking
     type Backend = Autodiff<Wgpu>;
 

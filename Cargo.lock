@@ -527,24 +527,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "brain_app"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "burn",
- "dioxus",
- "getrandom 0.2.17",
- "pulldown-cmark",
- "ractor",
- "reqwest",
- "rmcp",
- "schemars 0.8.22",
- "serde",
- "serde_json",
- "tokio",
-]
-
-[[package]]
 name = "bstr"
 version = "1.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6219,6 +6201,24 @@ name = "pastey"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b867cad97c0791bbd3aaa6472142568c6c9e8f71937e98379f584cfb0cf35bec"
+
+[[package]]
+name = "pattern_clock"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "burn",
+ "dioxus",
+ "getrandom 0.2.17",
+ "pulldown-cmark",
+ "ractor",
+ "reqwest",
+ "rmcp",
+ "schemars 0.8.22",
+ "serde",
+ "serde_json",
+ "tokio",
+]
 
 [[package]]
 name = "pbkdf2"

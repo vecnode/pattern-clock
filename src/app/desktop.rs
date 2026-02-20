@@ -83,11 +83,25 @@ pub fn DesktopApp() -> Element {
                 },
                 "Build LSTM"
             }
+            button {
+                onclick: move |_| {
+                    println!("Computing tensor gradients");
+                    crate::burn_tensor_example();
+                },
+                "Compute Tensor Gradients"
+            }
         }
-        br {}
         DesktopEcho {}
         br {}
-        DesktopMCP {}
+        div {
+            id: "app-header",
+            width: "40%",
+            p {
+                font_size: "12px",
+                "MCP Server Test"
+            }
+            DesktopMCP {}
+        }
     }
 }
 
@@ -111,10 +125,10 @@ fn DesktopEcho() -> Element {
     rsx! {
         div {
             id: "echo",
-            p { "ServerFn Echo" }
+            h5 { "ServerFn Echo" }
             br {}
             input {
-                placeholder: "Type here to echo...",
+                placeholder: "Type here to echo.",
                 oninput:  move |event| async move {
                     let data = echo_server(event.value()).await.unwrap();
                     response.set(data);
@@ -139,33 +153,44 @@ fn DesktopMCP() -> Element {
     let mut is_loading = use_signal(|| false);
 
     rsx! {
-        div {
-            id: "mcp-test",
-            p { "MCP Server Test" }
-            br {}
-            button {
-                disabled: is_loading(),
-                onclick: move |_| {
-                    is_loading.set(true);
-                    mcp_response.set(String::new());
-                    spawn(async move {
-                        let mcp_server = crate::mcp_server::PatternClockMCP::new();
-                        match mcp_server.call_example_tool().await {
-                            result => {
-                                mcp_response.set(result);
-                                is_loading.set(false);
-                            }
+        button {
+            disabled: is_loading(),
+            onclick: move |_| {
+                is_loading.set(true);
+                mcp_response.set(String::new());
+                spawn(async move {
+                    let mcp_server = crate::mcp_server::PatternClockMCP::new();
+                    match mcp_server.call_example_tool().await {
+                        result => {
+                            mcp_response.set(result);
+                            is_loading.set(false);
                         }
-                    });
-                },
-                if is_loading() { "Loading..." } else { "Call MCP Example Tool" }
-            }
-            br {}
-            if !mcp_response().is_empty() {
-                p {
-                    "MCP Response: "
-                    i { "{mcp_response}" }
-                }
+                    }
+                });
+            },
+            if is_loading() { "Loading..." } else { "Call MCP Example Tool" }
+        }
+        button {
+            disabled: is_loading(),
+            onclick: move |_| {
+                is_loading.set(true);
+                mcp_response.set(String::new());
+                spawn(async move {
+                    let mcp_server = crate::mcp_server::PatternClockMCP::new();
+                    match mcp_server.call_get_random_number().await {
+                        result => {
+                            mcp_response.set(result);
+                            is_loading.set(false);
+                        }
+                    }
+                });
+            },
+            if is_loading() { "Loading..." } else { "Get Random Number" }
+        }
+        if !mcp_response().is_empty() {
+            p {
+                "MCP Response: "
+                i { "{mcp_response}" }
             }
         }
     }

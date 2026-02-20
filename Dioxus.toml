@@ -21,11 +21,11 @@ resizable = false
 [web.resource]
 
 # Additional JavaScript files
-script = ["assets/cytoscape-dist/cytoscape.min.js", "assets/graphview.js"]
+# script = []
 
 [web.resource.dev]
 
 # Javascript code file
 # serve: [dev-server] only
-script = ["assets/cytoscape-dist/cytoscape.min.js", "assets/graphview.js"]
+# script = []
 

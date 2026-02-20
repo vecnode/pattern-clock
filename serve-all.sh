@@ -19,13 +19,13 @@ echo "Press Ctrl+C to stop"
 echo ""
 
 if command -v gnome-terminal >/dev/null 2>&1; then
-    gnome-terminal -- bash -c "cd '$SCRIPT_DIR' && dx serve; exec bash" 2>/dev/null &
+    gnome-terminal --title "Web Server" -- bash -c "cd '$SCRIPT_DIR' && dx serve; exec bash" 2>/dev/null &
     sleep 3
-    gnome-terminal -- bash -c "cd '$SCRIPT_DIR' && dx serve --platform desktop; exec bash" 2>/dev/null &
+    gnome-terminal --title "Desktop Server" -- bash -c "cd '$SCRIPT_DIR' && dx serve --platform desktop; exec bash" 2>/dev/null &
 elif command -v xterm >/dev/null 2>&1; then
-    xterm -e "cd '$SCRIPT_DIR' && dx serve; exec bash" 2>/dev/null &
+    xterm -T "Web Server" -e "cd '$SCRIPT_DIR' && dx serve; exec bash" 2>/dev/null &
     sleep 3
-    xterm -e "cd '$SCRIPT_DIR' && dx serve --platform desktop; exec bash" 2>/dev/null &
+    xterm -T "Desktop Server" -e "cd '$SCRIPT_DIR' && dx serve --platform desktop; exec bash" 2>/dev/null &
 else
     dx serve &
     sleep 3

@@ -23,6 +23,26 @@ impl PatternClockMCP {
     pub async fn example_tool(&self) -> String {
         "Hello from pattern-clock MCP server!".to_string()
     }
+
+    /// Get random numbers
+    #[tool(description = "Returns a random number between 0 and 1000")]
+    pub async fn get_random_number(&self) -> String {
+        use std::collections::hash_map::DefaultHasher;
+        use std::hash::{Hash, Hasher};
+        use std::time::{SystemTime, UNIX_EPOCH};
+        
+        let timestamp = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        
+        let mut hasher = DefaultHasher::new();
+        timestamp.hash(&mut hasher);
+        let hash = hasher.finish();
+        
+        let random = (hash % 1000) as u64;
+        format!("Random number: {}", random)
+    }
 }
 
 #[tool_handler]
@@ -40,6 +60,11 @@ impl PatternClockMCP {
     /// Call the example tool directly (for use by desktop app)
     pub async fn call_example_tool(&self) -> String {
         self.example_tool().await
+    }
+
+    /// Get random number directly (for use by desktop app)
+    pub async fn call_get_random_number(&self) -> String {
+        self.get_random_number().await
     }
 
     /// Process agent directly (for use by desktop app)

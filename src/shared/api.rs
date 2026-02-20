@@ -2,19 +2,6 @@
 
 use dioxus::prelude::*;
 use crate::agents::{get_agent, ensure_agents_initialized};
-use crate::connections::{create_ollama_provider, LlmProvider};
-
-/// Send a chat message to the LLM and get a response
-#[post("/api/chat/send")]
-pub async fn chat_send(message: String, model: String) -> Result<String, ServerFnError> {
-    let provider = create_ollama_provider()
-        .map_err(|e| ServerFnError::new(format!("Failed to create Ollama provider: {}", e)))?;
-    
-    provider
-        .send_message(&message, &model)
-        .await
-        .map_err(|e| ServerFnError::new(format!("LLM error: {}", e)))
-}
 
 /// Echo the user input on the server.
 #[post("/api/echo")]
