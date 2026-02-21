@@ -100,8 +100,8 @@ pub fn DesktopApp() -> Element {
                 font_size: "12px",
                 "MCP Server Test"
             }
-            DesktopMCP {}
         }
+        DesktopMCP {}
     }
 }
 
@@ -146,6 +146,7 @@ fn DesktopEcho() -> Element {
 }
 
 /// MCP Server component for testing MCP tools
+/// Desktop app can call MCP tools directly (same as web app)
 #[cfg(feature = "desktop")]
 #[component]
 fn DesktopMCP() -> Element {
@@ -153,44 +154,58 @@ fn DesktopMCP() -> Element {
     let mut is_loading = use_signal(|| false);
 
     rsx! {
-        button {
-            disabled: is_loading(),
-            onclick: move |_| {
-                is_loading.set(true);
-                mcp_response.set(String::new());
-                spawn(async move {
-                    let mcp_server = crate::mcp_server::PatternClockMCP::new();
-                    match mcp_server.call_example_tool().await {
-                        result => {
-                            mcp_response.set(result);
-                            is_loading.set(false);
+        div {
+            button {
+                disabled: is_loading(),
+                onclick: move |_| {
+                    is_loading.set(true);
+                    mcp_response.set(String::new());
+                    spawn(async move {
+                        // Call MCP tool directly via server function
+                        match crate::shared::mcp_example_tool().await {
+                            Ok(result) => {
+                                mcp_response.set(result);
+                                is_loading.set(false);
+                            }
+                            Err(e) => {
+                                mcp_response.set(format!("Error: {}", e));
+                                is_loading.set(false);
+                            }
                         }
-                    }
-                });
-            },
-            if is_loading() { "Loading..." } else { "Call MCP Example Tool" }
+                    });
+                },
+                if is_loading() { "Loading..." } else { "Call MCP Example Tool" }
+            }
         }
-        button {
-            disabled: is_loading(),
-            onclick: move |_| {
-                is_loading.set(true);
-                mcp_response.set(String::new());
-                spawn(async move {
-                    let mcp_server = crate::mcp_server::PatternClockMCP::new();
-                    match mcp_server.call_get_random_number().await {
-                        result => {
-                            mcp_response.set(result);
-                            is_loading.set(false);
+        div {
+            button {
+                disabled: is_loading(),
+                onclick: move |_| {
+                    is_loading.set(true);
+                    mcp_response.set(String::new());
+                    spawn(async move {
+                        // Call MCP tool directly via server function
+                        match crate::shared::mcp_random_number().await {
+                            Ok(result) => {
+                                mcp_response.set(result);
+                                is_loading.set(false);
+                            }
+                            Err(e) => {
+                                mcp_response.set(format!("Error: {}", e));
+                                is_loading.set(false);
+                            }
                         }
-                    }
-                });
-            },
-            if is_loading() { "Loading..." } else { "Get Random Number" }
+                    });
+                },
+                if is_loading() { "Loading..." } else { "Get Random Number" }
+            }
         }
         if !mcp_response().is_empty() {
-            p {
-                "MCP Response: "
-                i { "{mcp_response}" }
+            div {
+                p {
+                    "MCP Response: "
+                    i { "{mcp_response}" }
+                }
             }
         }
     }

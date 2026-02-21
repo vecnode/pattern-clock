@@ -6218,6 +6218,9 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio",
+ "tokio-stream",
+ "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]
